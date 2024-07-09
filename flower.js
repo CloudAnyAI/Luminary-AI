@@ -9,7 +9,7 @@ onload = () => {
 
  // script.js
 function showModal() {
-    var modal = document.getElementById("modaloffserver");
+    var modal = document.getElementById("not-loaded");
     var currentHour = new Date().getHours();
     
     if (currentHour >= 10 || currentHour < 6) {
