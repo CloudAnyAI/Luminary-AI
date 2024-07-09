@@ -82,16 +82,36 @@
 </div>
     </div>
   <script>
-   document.addEventListener("DOMContentLoaded", function() {
-    setTimeout(function() {
-        var splashScreen = document.getElementById('splash-screen');
-        splashScreen.classList.add('fade-out');
+   // script.js
+function showModal() {
+    var modal = document.getElementById("modal");
+    var now = new Date();
 
-        splashScreen.addEventListener('transitionend', function() {
-            splashScreen.style.display = 'none';
-            document.getElementById('main-content').classList.remove('hidden');
-        });
-    }, 7000);
+    // Lấy giờ, phút, giây hiện tại
+    var currentHour = now.getHours();
+    var currentMinute = now.getMinutes();
+    var currentSecond = now.getSeconds();
+
+    // Tạo đối tượng thời gian cho các mốc thời gian xác định
+    var eveningStart = new Date();
+    eveningStart.setHours(11, 57, 10); // 20:32:35
+
+    var morningEnd = new Date();
+    morningEnd.setHours(6, 20, 10); // 06:20:10
+
+    // Kiểm tra nếu thời gian hiện tại nằm trong khoảng từ 20:32:35 đến 06:20:10
+    if (now >= eveningStart || now < morningEnd) {
+        modal.style.display = "block";
+    } else {
+        modal.style.display = "none";
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    showModal();
+    
+    // Kiểm tra mỗi phút để cập nhật hiển thị modal nếu cần
+    setInterval(showModal, 1000); // Kiểm tra mỗi giây
 });
 
   </script>
