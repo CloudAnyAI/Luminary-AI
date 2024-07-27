@@ -13,8 +13,7 @@ const usersData = [
     password: "password123",
     fullname: "Jane Doe",
     gender: "Female",
-    country: "USA",
-    he: "Janedoe",
+    country: "USA", pr: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg",
     social: "https://twitter.com/janedoe",
     avatar: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg"
   }
@@ -52,10 +51,11 @@ function displayUserInfo() {
   const userInfo = JSON.parse(localStorage.getItem('userInfo'));
   if (userInfo) {
     document.getElementById('user-avatar').src = userInfo.avatar;
+
+document.getElementById('avatar-pr').src = userInfo.pr;
     document.getElementById('info-username').innerText = userInfo.username;
     document.getElementById('info-fullname').innerText = userInfo.fullname;
 
-document.getElementById('info-he').innerText = userInfo.he;
     document.getElementById('info-gender').innerText = userInfo.gender;
     document.getElementById('info-country').innerText = userInfo.country;
     document.getElementById('info-social').href = userInfo.social;
