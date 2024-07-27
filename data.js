@@ -53,7 +53,7 @@ function displayUserInfo() {
   if (userInfo) {
     document.getElementById('user-avatar').src = userInfo.avatar;
 
-document.getElementById('avatar-pr').src = userInfo.pr;
+
     document.getElementById('info-username').innerText = userInfo.username;
     document.getElementById('info-fullname').innerText = userInfo.fullname;
 
