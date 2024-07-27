@@ -30,20 +30,22 @@ const usersData = [
       }
 
       function validateLogin() {
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
-        const user = usersData.find(user => user.username === username && user.password === password);
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+  const user = usersData.find(user => user.username === username && user.password === password);
 
-        if (user) {
-          const accountType = username.toLowerCase() === 'janedoe' ? 'unlimited' : 'limited';
-          localStorage.setItem('isLoggedIn', JSON.stringify({ username: user.username, accountType }));
-          localStorage.setItem('userInfo', JSON.stringify(user));
-          document.getElementById('login-modal').classList.add('hidden');
-          displayUserInfo();
-        } else {
-          alert('Invalid username or password.');
-        }
-      }
+  if (user) {
+    const accountType = username.toLowerCase() === 'janedoe' ? 'unlimited' : 'limited';
+    localStorage.setItem('isLoggedIn', JSON.stringify({ username: user.username, accountType }));
+    localStorage.setItem('userInfo', JSON.stringify(user));
+    document.getElementById('login-modal').classList.add('hidden');
+    displayUserInfo();
+    window.location.href = 'https://luminarylig.pages.dev';  // Redirect to the specified URL
+  } else {
+    alert('Invalid username or password.');
+  }
+}
+
 
       function displayUserInfo() {
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
