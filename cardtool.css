@@ -1,0 +1,146 @@
+        @media (min-width: 768px) {
+.grid-card {
+  padding: 15px;
+}
+            
+        }
+
+        /* Style for mobile */
+        @media (max-width: 767px) {
+            .grid-card {
+              
+            padding: 25px;
+            }
+            .inputsearch {
+              max-width: 300px;
+              display: flex;
+              justify-content: center;
+              margin-left: 55px;
+              margin-right: 55px;
+            }
+            }
+
+
+
+.grid-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 1rem;
+    justify-content: center; /* Thêm dòng này để các thẻ nằm giữa màn hình */
+    
+}
+
+.inputsearch {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.inputsearch:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.inputsearch:active {
+  transform: scale(0.95);
+}
+
+.inputsearch:focus {
+  border: 2px solid grey;
+}
+
+#noResultsMessage {
+  text-align: center;
+  color: red;
+  font-size: 1.25rem;
+  margin-top: 1rem;
+}
+.mgb {
+  padding-bottom: 50px;
+}
+.card-tl {
+  max-width: 550px;
+  border-width: 2px;
+  border-color: rgba(219, 234, 254, 1);
+  border-radius: 1rem;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 4px;
+  padding: 1rem;
+  
+  
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  grid-gap: 1rem;
+  gap: 1rem;
+}
+
+.icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: rgba(96, 165, 250, 1);
+  padding: 0.5rem;
+  color: rgba(255, 255, 255, 1);
+}
+
+.icon svg {
+  height: 1rem;
+  width: 1rem;
+}
+
+.alert {
+  font-weight: 600;
+  color: rgba(107, 114, 128, 1);
+}
+
+.message {
+  margin-top: 1rem;
+  color: rgba(107, 114, 128, 1);
+}
+
+.actions {
+  margin-top: 1.5rem;
+}
+
+.actions a {
+  text-decoration: none;
+}
+
+.mark-as-read, .read {
+  display: inline-block;
+  border-radius: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1.25rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+}
+
+.read {
+  background-color: rgba(59, 130, 246, 1);
+  color: rgba(255, 255, 255, 1);
+}
+
+.mark-as-read {
+  margin-top: 0.5rem;
+  background-color: rgba(249, 250, 251, 1);
+  color: rgba(107, 114, 128, 1);
+  transition: all .15s ease;
+}
+
+.mark-as-read:hover {
+  background-color: rgb(230, 231, 233);
+}
