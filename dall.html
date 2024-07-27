@@ -1,0 +1,270 @@
+    <!DOCTYPE html>
+<html data-theme="wireframe" lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AnyAI - Danh Trình</title>
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.3/dist/tailwind.min.css"></script>
+    <link rel="icon" type="image/x-icon" href="favicon.jpg">
+    <meta name="description" content="Sản phẩm do Danh Trình tạo ra, thuộc Việt Nam">
+    <meta name="keywords" content="ai, anyai, tool, vietnam, danh trình, chiêm thành tấn, any">
+
+    <meta property="og:url" content="https://anyai.netlify.app">
+    <meta property="og:title" content="AnyAI by Danh Trình - AnyAI.Netlify.App">
+    <meta property="og:description" content="Sản phẩm do Danh Trình tạo ra, thuộc Việt Nam">
+    <meta property="og:image" content="favicon.jpg">
+<!-- TrustBox script -->
+<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+<!-- End TrustBox script -->
+    <link rel='manifest' href='/manifest.json'>
+    <meta name='mobile-web-app-capable' content='yes'>
+    <meta name='apple-mobile-web-app-capable' content='yes'>
+    <meta name='application-name' content='AnyAI+'><meta name='apple-mobile-web-app-title' content='AnyAI+'>
+    <meta name='msapplication-starturl' content='/'>
+    <!-- stylesheet -->
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/@material-tailwind/html@latest/styles/material-tailwind.css"
+    />
+    <!-- script -->
+    <script src="https://unpkg.com/@material-tailwind/html@latest/scripts/script-name.js"></script>
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;1,800&display=swap"
+      rel="stylesheet"
+    />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+  <link href="toolimg.css" rel="stylesheet">
+<link href="cardtool.css" rel="stylesheet">
+    <style>
+    @font-face {
+      font-family: Bubble;
+      src: url(/Luminary-AI-main/Product Sans Regular.otf);
+    }
+
+      body {
+        background-color:#fff;
+        font-family: Bubble;
+      }
+      .font-lumi {
+        font-family: Bubble;
+      }
+      /*css for color*/
+      .bg-[#000000e5] {
+        background-color: #000000e5;
+      }
+      .backdrop-blur {
+        backdrop-filter: blur(8px);
+        background-color: #ffffff89;
+      }
+      .wih {
+        width: 400px;
+        border-radius: 16px;
+      }
+
+      .pdg {
+        margin-bottom: 90px;
+      }
+    </style>
+    <script src="data.js">
+    </script>
+</head>
+<body class="bg-white text-gray-800">
+
+        <style>
+.btnscale {
+}
+.btnscale:active {
+  transform: scale(0);
+
+    </style>
+</head>
+
+
+
+<img class="flex justify-center items-center mt-20 mx-auto" src="/Luminary-AI-main/IGL.png" alt="" style="width: 250px; height: 90px; ">
+        <div class="relative p-4 font-sans text-base antialiased font-light leading-relaxed  text-blue-gray-500">
+
+            <form id="image-generator-form" class="space-y-4">
+                <div>
+              <h6
+          class="block mb-2 mt-5 text-center font-sans font-lumi antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+          Gõ lời nhắc cho Luminary
+        </h6>
+        <div class="relative h-11 w-full min-w-[200px]">
+          <input id="prompt"
+            class="inputsearch mx-auto block"
+            placeholder="Ví dụ: Một ngôi nhà lớn " />
+
+        </div>
+                <div id="error-message" class="text-red-500 hidden"></div>
+                <button 
+    class="flex justify-center items-center btnscale mx-auto select-none mt-5 font-lumi font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-3xl bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+    type="submit"
+    data-ripple-light="true"
+    >
+    Generator</button>
+            </form>
+            <img id="spinner" src="https://i.imgur.com/UQ1VMWI.gif" class="hidden mt-4  w-12 h-12 pointer-events-none"></div>
+            <div id="generated-image" class="mt-4 rounded-2xl"></div>
+            <!-- Fullscreen View Modal -->
+            <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
+              <div class="relative bg-black rounded-lg">
+                <img id="fullscreen-img" src="" alt="Full Screen Image" class="w-full h-auto">
+                <a id="download-btn" class="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md">Download</a>
+                <button onclick="closeFullscreenModal()" class="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full">X</button>
+              </div>
+            </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+</body>
+
+<script>
+function openImageGeneratorModal() {
+    const userAccount = JSON.parse(localStorage.getItem('isLoggedIn'));
+    if (userAccount) {
+        const userLimits = {
+            limited: 4,
+            unlimited: Infinity
+        };
+        const usageKey = `usage_${userAccount.username}_${getUsageResetDate()}`;
+        let storedUsageDate = localStorage.getItem("usageDate");
+        let usageCount = 0;
+
+        if (storedUsageDate !== getUsageResetDate()) {
+            localStorage.setItem("usageDate", getUsageResetDate());
+            localStorage.setItem(usageKey, 0);
+        } else {
+            usageCount = parseInt(localStorage.getItem(usageKey)) || 0;
+        }
+
+        if (usageCount >= userLimits[userAccount.accountType]) {
+            alert(`Bạn đã đạt đến ngưỡng giới hạn. Thời gian đặt lại: ${getTimeUntilReset()}`);
+        } else {
+            document.getElementById('dialog-xlll').classList.remove('hidden');
+        }
+    }
+}
+
+function closeImageGeneratorModal() {
+    document.getElementById('image-generator-modal').classList.add('hidden');
+    document.getElementById('image-generator-form').reset();
+    document.getElementById('error-message').classList.add('hidden');
+    document.getElementById('generated-image').innerHTML = '';
+}
+
+document.getElementById('image-generator-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const prompt = document.getElementById('prompt').value;
+    generateImage(prompt);
+});
+
+// Initially hide the "Generate Image" button if testuser has exceeded the limit
+const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+if (isLoggedIn && isLoggedIn.username === 'testuser') {
+    const usageKey = `usage_${isLoggedIn.username}_${getUsageResetDate()}`;
+    let storedUsageDate = localStorage.getItem('usageDate');
+    let usageCount = 0;
+
+    if (storedUsageDate !== getUsageResetDate()) {
+        localStorage.setItem('usageDate', getUsageResetDate());
+        localStorage.setItem(usageKey, 0);
+    } else {
+        usageCount = parseInt(localStorage.getItem(usageKey)) || 0;
+    }
+
+    if (usageCount >= 4) {
+        const generateButtons = document.querySelectorAll('button[data-role="generate-button"]');
+        generateButtons.forEach(button => button.style.display = 'none');
+    }
+}
+
+function generateImage(prompt) {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo) {
+        const usageKey = `usage_${userInfo.userId}_${getUsageResetDate()}`;
+        const usageCount = parseInt(localStorage.getItem(usageKey)) || 0;
+        const userLimits = {
+            "janedoe": Infinity,
+            "testuser": 3
+        };
+
+        if (usageCount >= userLimits[userInfo.username]) {
+            document.getElementById('error-message').innerText = `Bạn đã đạt đến ngưỡng giới hạn. Thời gian đặt lại: ${getTimeUntilReset()}`;
+            document.getElementById('error-message').classList.remove('hidden');
+            return;
+        }
+
+        document.getElementById('spinner').classList.remove('hidden');
+
+        fetch("https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1kOFBXU05tYk0zYjl2QVl4MjE1dHlDbl83OUdDQ3dwSUR0dXdYWmlCeFFKVmZESm4xakpSTU1uczZjV2RQaktDd085cnFaZU1ab19hbDk4ZmJGYVJLdm1keG44N2x2dmVzWURGSUU4TnBGMjFkZFU9", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: prompt })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('spinner').classList.add('hidden');
+            if (data.status === 'success') {
+                document.getElementById('generated-image').innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
+                localStorage.setItem(usageKey, usageCount + 1);
+            } else {
+                displayErrorMessage('Error generating image. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error generating image:', error);
+            document.getElementById('spinner').classList.add('hidden');
+            displayErrorMessage('Error generating image. Please try again.');
+        });
+    }
+}
+
+function getUsageResetDate() {
+    const now = new Date();
+    if (now.getHours() >= 22) {
+        return now.toISOString().split('T')[0];
+    } else {
+        const yesterday = new Date(now);
+        yesterday.setDate(yesterday.getDate() - 1);
+        return yesterday.toISOString().split('T')[0];
+    }
+}
+
+function getTimeUntilReset() {
+    const now = new Date();
+    let resetTime = new Date();
+    resetTime.setHours(22, 0, 0, 0); // Set reset time to 10 PM today
+
+    if (now > resetTime) {
+        resetTime.setDate(resetTime.getDate() + 1); // If it's past 10 PM, set reset time to 10 PM tomorrow
+    }
+
+    const timeDifference = resetTime - now;
+    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+    return `${hours} giờ ${minutes} phút ${seconds} giây`;
+}
+
+function displayErrorMessage(message) {
+    const errorMessageElement = document.getElementById('error-message');
+    errorMessageElement.innerText = message;
+    errorMessageElement.classList.remove('hidden');
+
+    // Hide the error message after 5 seconds
+    setTimeout(() => {
+        errorMessageElement.classList.add('hidden');
+    }, 5000);
+}
+    </script>
+</html>
