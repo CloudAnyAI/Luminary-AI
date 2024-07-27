@@ -24,7 +24,7 @@ function checkLogin() {
   if (isLoggedIn && isLoggedIn.username) {
     document.getElementById('login-modal').classList.add('hidden');
     displayUserInfo();
-    window.location.href = 'https://luminarylig.pages.dev/main-index';  // Redirect to the specified URL
+    // Redirect to the specified URL
   } else {
     document.getElementById('login-modal').classList.remove('hidden');
   }
