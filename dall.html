@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html data-theme="wireframe" lang="vi">
 <head>
     <meta charset="UTF-8">
@@ -34,6 +34,10 @@
       href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;1,800&display=swap"
       rel="stylesheet"
     />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.1/fabric.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
   <link href="style.css" rel="stylesheet">
   <link href="toolimg.css" rel="stylesheet">
@@ -67,6 +71,32 @@
       .pdg {
         margin-bottom: 90px;
       }
+      
+      .inputsearch {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.inputsearch:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.inputsearch:active {
+  transform: scale(0.95);
+}
+
+.inputsearch:focus {
+  border: 2px solid grey;
+}
     </style>
     <script src="data.js">
     </script>
@@ -112,13 +142,29 @@
             <!-- Fullscreen View Modal -->
             <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
               <div class="relative bg-black rounded-lg">
-                <img id="fullscreen-img" src="" alt="Full Screen Image" class="w-full h-auto">
+                <canvas id="image-canvas" class="w-full h-auto hidden"></canvas>
+                <img id="fullscreen-img" src="" alt="Full Screen Image" class="hidden w-full h-auto">
+                <div class="absolute bottom-4 left-4 flex space-x-2">
+                    <button id="download-btn" class="bg-blue-500 text-white px-4 py-2 rounded-md">Download</button>
+                    <button id="edit-btn" class="bg-green-500 text-white px-4 py-2 rounded-md">Edit</button>
+                </div>
                 <a id="download-btn" class="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md">Download</a>
                 <button onclick="closeFullscreenModal()" class="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full">X</button>
               </div>
             </div>
         </div>
-
+<div id="editor" class="hidden">
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <div class="tools">
+        <button onclick="applyFilter('grayscale')">Grayscale</button>
+        <button onclick="applyFilter('sepia')">Sepia</button>
+        <button onclick="applyFilter('invert')">Invert</button>
+        <button onclick="cropImage()">Crop</button>
+        <button onclick="downloadImage()">Download</button>
+        <button onclick="closeEditor()">Close</button>
+    </div>
+</div>
+  
 
         </div>
       </div>
@@ -126,37 +172,72 @@
 </body>
 
 <script>
-function openImageGeneratorModal() {
-    const userAccount = JSON.parse(localStorage.getItem('isLoggedIn'));
-    if (userAccount) {
-        const userLimits = {
-            limited: 4,
-            unlimited: Infinity
-        };
-        const usageKey = `usage_${userAccount.username}_${getUsageResetDate()}`;
-        let storedUsageDate = localStorage.getItem("usageDate");
-        let usageCount = 0;
+function openFullscreenModal(imageUrl) {
+    document.getElementById('fullscreen-img').src = imageUrl;
+    document.getElementById('fullscreen-modal').classList.remove('hidden');
+}
 
-        if (storedUsageDate !== getUsageResetDate()) {
-            localStorage.setItem("usageDate", getUsageResetDate());
-            localStorage.setItem(usageKey, 0);
-        } else {
-            usageCount = parseInt(localStorage.getItem(usageKey)) || 0;
-        }
+function closeFullscreenModal() {
+    document.getElementById('fullscreen-modal').classList.add('hidden');
+}
 
-        if (usageCount >= userLimits[userAccount.accountType]) {
-            alert(`Bạn đã đạt đến ngưỡng giới hạn. Thời gian đặt lại: ${getTimeUntilReset()}`);
-        } else {
-            document.getElementById('dialog-xlll').classList.remove('hidden');
+function openEditor(imageUrl) {
+    document.getElementById('editor').classList.remove('hidden');
+    const canvas = new fabric.Canvas('canvas');
+    fabric.Image.fromURL(imageUrl, function(img) {
+        canvas.add(img);
+        img.scaleToWidth(canvas.width);
+        img.center();
+    });
+}
+
+function closeEditor() {
+    document.getElementById('editor').classList.add('hidden');
+}
+
+function applyFilter(filter) {
+    const canvas = new fabric.Canvas('canvas');
+    const activeObject = canvas.getActiveObject();
+    if (activeObject && activeObject.type === 'image') {
+        switch(filter) {
+            case 'grayscale':
+                activeObject.filters.push(new fabric.Image.filters.Grayscale());
+                break;
+            case 'sepia':
+                activeObject.filters.push(new fabric.Image.filters.Sepia());
+                break;
+            case 'invert':
+                activeObject.filters.push(new fabric.Image.filters.Invert());
+                break;
         }
+        activeObject.applyFilters();
+        canvas.renderAll();
     }
 }
 
-function closeImageGeneratorModal() {
-    document.getElementById('image-generator-modal').classList.add('hidden');
-    document.getElementById('image-generator-form').reset();
-    document.getElementById('error-message').classList.add('hidden');
-    document.getElementById('generated-image').innerHTML = '';
+function cropImage() {
+    const canvas = new fabric.Canvas('canvas');
+    const activeObject = canvas.getActiveObject();
+    if (activeObject && activeObject.type === 'image') {
+        const cropped = new fabric.Image(activeObject.getElement(), {
+            left: activeObject.left,
+            top: activeObject.top,
+            width: activeObject.width * activeObject.scaleX,
+            height: activeObject.height * activeObject.scaleY,
+        });
+        canvas.clear();
+        canvas.add(cropped);
+        cropped.center();
+    }
+}
+
+function downloadImage() {
+    html2canvas(document.getElementById('canvas')).then(function(canvas) {
+        const link = document.createElement('a');
+        link.download = 'edited-image.png';
+        link.href = canvas.toDataURL();
+        link.click();
+    });
 }
 
 document.getElementById('image-generator-form').addEventListener('submit', function(event) {
@@ -164,26 +245,6 @@ document.getElementById('image-generator-form').addEventListener('submit', funct
     const prompt = document.getElementById('prompt').value;
     generateImage(prompt);
 });
-
-// Initially hide the "Generate Image" button if testuser has exceeded the limit
-const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
-if (isLoggedIn && isLoggedIn.username === 'testuser') {
-    const usageKey = `usage_${isLoggedIn.username}_${getUsageResetDate()}`;
-    let storedUsageDate = localStorage.getItem('usageDate');
-    let usageCount = 0;
-
-    if (storedUsageDate !== getUsageResetDate()) {
-        localStorage.setItem('usageDate', getUsageResetDate());
-        localStorage.setItem(usageKey, 0);
-    } else {
-        usageCount = parseInt(localStorage.getItem(usageKey)) || 0;
-    }
-
-    if (usageCount >= 4) {
-        const generateButtons = document.querySelectorAll('button[data-role="generate-button"]');
-        generateButtons.forEach(button => button.style.display = 'none');
-    }
-}
 
 function generateImage(prompt) {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
@@ -214,7 +275,7 @@ function generateImage(prompt) {
         .then(data => {
             document.getElementById('spinner').classList.add('hidden');
             if (data.status === 'success') {
-                document.getElementById('generated-image').innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
+                document.getElementById('generated-image').innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openEditor('${data.imageUrl}')">`;
                 localStorage.setItem(usageKey, usageCount + 1);
             } else {
                 displayErrorMessage('Error generating image. Please try again.');
@@ -228,43 +289,15 @@ function generateImage(prompt) {
     }
 }
 
-function getUsageResetDate() {
-    const now = new Date();
-    if (now.getHours() >= 22) {
-        return now.toISOString().split('T')[0];
-    } else {
-        const yesterday = new Date(now);
-        yesterday.setDate(yesterday.getDate() - 1);
-        return yesterday.toISOString().split('T')[0];
-    }
-}
-
-function getTimeUntilReset() {
-    const now = new Date();
-    let resetTime = new Date();
-    resetTime.setHours(22, 0, 0, 0); // Set reset time to 10 PM today
-
-    if (now > resetTime) {
-        resetTime.setDate(resetTime.getDate() + 1); // If it's past 10 PM, set reset time to 10 PM tomorrow
-    }
-
-    const timeDifference = resetTime - now;
-    const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-
-    return `${hours} giờ ${minutes} phút ${seconds} giây`;
-}
-
 function displayErrorMessage(message) {
     const errorMessageElement = document.getElementById('error-message');
     errorMessageElement.innerText = message;
     errorMessageElement.classList.remove('hidden');
 
-    // Hide the error message after 5 seconds
     setTimeout(() => {
         errorMessageElement.classList.add('hidden');
     }, 5000);
 }
-    </script>
+</script>
+
 </html>
