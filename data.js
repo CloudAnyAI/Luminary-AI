@@ -13,7 +13,8 @@ const usersData = [
     password: "password123",
     fullname: "Jane Doe",
     gender: "Female",
-    country: "USA", pr: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg",
+    country: "USA", 
+    pr: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg",
     social: "https://twitter.com/janedoe",
     avatar: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg"
   }
