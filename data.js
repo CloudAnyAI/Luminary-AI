@@ -14,6 +14,7 @@ const usersData = [
     fullname: "Jane Doe",
     gender: "Female",
     country: "USA",
+    preview: "Janedoe",
     social: "https://twitter.com/janedoe",
     avatar: "https://i.9mobi.vn/cf/Images/huy/2021/12/6/anh-gai-xinh-3.jpg"
   }
@@ -54,7 +55,7 @@ function displayUserInfo() {
     document.getElementById('info-username').innerText = userInfo.username;
     document.getElementById('info-fullname').innerText = userInfo.fullname;
 
-document.getElementById('info-preview').innerText = userInfo.fullname;
+document.getElementById('info-preview').innerText = userInfo.preview;
     document.getElementById('info-gender').innerText = userInfo.gender;
     document.getElementById('info-country').innerText = userInfo.country;
     document.getElementById('info-social').href = userInfo.social;
