@@ -1,0 +1,56 @@
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 flex items-center justify-center backdrop-blur   z-50" style="background-color: #00000087;">
+        <div class="bg-white p-6 rounded-3xl shadow-lg mr-6 ml-6">
+
+      <div class="flex flex-col gap-4 p-6 flex justify-center items-center">
+    <img src="https://i.imgur.com/ecw9dix.png" style=" width: 140px;pointer-events: none;">
+        <h4
+          class="block text-center font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900">
+          Đăng nhập sử dụng</h4><span class="text-blue-500 text-2xl font-black">Luminary AI
+        </span>
+
+        <h6
+          class="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+          Tên đăng nhập của bạn
+        </h6>
+        <div class="relative h-11 w-full min-w-[200px]">
+          <input id="username"
+            class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-2xl peer border-blue-gray-200  text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+            placeholder="Tên đăng nhập của bạn..." />
+
+        </div>
+        <h6
+          class="block -mb-2 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+          Mật khẩu của bạn
+        </h6>
+        <div class="relative h-11 w-full min-w-[200px]">
+          <input id="password" type="password"
+            class="w-full h-full px-3 py-3 font-sans text-sm font-normal transition-all bg-transparent border rounded-2xl peer border-blue-gray-200  text-blue-gray-700 outline outline-0 placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-gray-900 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
+            placeholder="Mật khẩu của bạn..." />
+
+        </div>
+        <div class="-ml-2.5 -mt-3">
+          <div class="inline-flex items-center">
+            <label class="relative flex items-center p-3 rounded-full cursor-pointer" htmlFor="remember">
+
+          </div>
+        </div>
+      </div>
+      <div class="p-6 pt-0">
+        <button onclick="validateLogin()"
+    class="flex justify-center items-center mx-auto select-none font-sans font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-3xl bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+    type="button"
+    data-ripple-light="true"
+    >
+    Đăng nhập</button>
+        <p class="flex justify-center mt-4 font-sans text-sm antialiased font-light leading-normal text-inherit">
+          Don&apos;t have an account?
+          <a href="danhtrinh.ofc@gmail.com"
+            class="block ml-1 font-sans text-sm antialiased font-bold leading-normal text-blue-gray-900">
+            Đăng ký Demo
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
