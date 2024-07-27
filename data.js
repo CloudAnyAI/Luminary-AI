@@ -52,8 +52,9 @@ function displayUserInfo() {
   if (userInfo) {
     document.getElementById('user-avatar').src = userInfo.avatar;
     document.getElementById('info-username').innerText = userInfo.username;
-document.getElementById('info-usernamepr').innerText = userInfo.username;
     document.getElementById('info-fullname').innerText = userInfo.fullname;
+
+document.getElementById('info-preview').innerText = userInfo.fullname;
     document.getElementById('info-gender').innerText = userInfo.gender;
     document.getElementById('info-country').innerText = userInfo.country;
     document.getElementById('info-social').href = userInfo.social;
