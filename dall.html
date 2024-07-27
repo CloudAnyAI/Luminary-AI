@@ -67,6 +67,33 @@
       .pdg {
         margin-bottom: 90px;
       }
+
+        .inputprompt {
+  width: 100%;
+  margin-top: 30px;
+  margin-bottom: 5px;
+  height: 45px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 12px;
+  border: 1.5px solid lightgrey;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+
+.inputprompt:hover {
+  border: 2px solid lightgrey;
+  box-shadow: 0px 0px 20px -17px;
+}
+
+.inputprompt:active {
+  transform: scale(0.95);
+}
+
+.inputprompt:focus {
+  border: 2px solid grey;
+}
     </style>
     <script src="data.js">
     </script>
@@ -95,7 +122,7 @@
         </h6>
         <div class="relative h-11 w-full min-w-[200px]">
           <input id="prompt"
-            class="inputsearch mx-auto block"
+            class="inputprompt"
             placeholder="Ví dụ: Một ngôi nhà lớn " />
 
         </div>
