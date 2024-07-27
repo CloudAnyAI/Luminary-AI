@@ -69,7 +69,59 @@
       }
     </style>
     <script src="data.js">
-    </script>
+    
+</head>
+<body class="bg-white text-gray-800">
+
+        <style>
+
+
+    </style>
+</head>
+
+
+
+<img class="flex justify-center items-center mt-20 mx-auto" src="/Luminary-AI-main/IGL.png" alt="" style="width: 250px; height: 90px; ">
+        <div class="relative p-4 font-sans text-base antialiased font-light leading-relaxed  text-blue-gray-500">
+
+            <form id="image-generator-form" class="space-y-4">
+                <div>
+              <h6
+          class="block mb-2 mt-5 text-center font-sans font-lumi antialiased font-semibold leading-relaxed tracking-normal text-inherit">
+          Gõ lời nhắc cho Luminary
+        </h6>
+        <div class="relative h-11 w-full min-w-[200px]">
+          <input id="prompt"
+            class="inputsearch"
+            placeholder="Ví dụ: Một ngôi nhà lớn " />
+
+        </div>
+                <div id="error-message" class="text-red-500 hidden"></div>
+                <button 
+    class="flex justify-center items-center mx-auto select-none mt-5 font-lumi font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-3xl bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
+    type="submit"
+    data-ripple-light="true"
+    >
+    Generator</button>
+            </form>
+            <img id="spinner" src="https://i.imgur.com/UQ1VMWI.gif" class="hidden mt-4  w-12 h-12 pointer-events-none"></div>
+            <div id="generated-image" class="mt-4 rounded-2xl"></div>
+            <!-- Fullscreen View Modal -->
+            <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
+              <div class="relative bg-black rounded-lg">
+                <img id="fullscreen-img" src="" alt="Full Screen Image" class="w-full h-auto">
+                <a id="download-btn" class="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md">Download</a>
+                <button onclick="closeFullscreenModal()" class="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full">X</button>
+              </div>
+            </div>
+        </div>
+
+
+        </div>
+      </div>
+    </div>
+</body>
+</script>
 <script>
 function openImageGeneratorModal() {
     const userAccount = JSON.parse(localStorage.getItem('isLoggedIn'));
@@ -212,53 +264,4 @@ function displayErrorMessage(message) {
     }, 5000);
 }
     </script>
-</head>
-<body class="bg-white text-gray-800">
-
-        <style>
-
-
-    </style>
-</head>
-
-
-
-<img class="flex justify-center items-center mt-20 mx-auto" src="/Luminary-AI-main/IGL.png" alt="" style="width: 250px; height: 90px; ">
-        <div class="relative p-4 font-sans text-base antialiased font-light leading-relaxed  text-blue-gray-500">
-
-            <form id="image-generator-form" class="space-y-4">
-                <div>
-              <h6
-          class="block mb-2 mt-5 text-center font-sans font-lumi antialiased font-semibold leading-relaxed tracking-normal text-inherit">
-          Gõ lời nhắc cho Luminary
-        </h6>
-        <div class="relative h-11 w-full min-w-[200px]">
-          <input id="prompt"
-            class="inputsearch"
-            placeholder="Ví dụ: Một ngôi nhà lớn " />
-
-        </div>
-                <div id="error-message" class="text-red-500 hidden"></div>
-                <button 
-    class="flex justify-center items-center mx-auto select-none mt-5 font-lumi font-bold text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 px-6 rounded-3xl bg-gray-900 text-white shadow-md shadow-gray-900/10 hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none"
-    type="submit"
-    data-ripple-light="true"
-    >
-    Generator</button>
-            </form>
-            <img id="spinner" src="https://i.imgur.com/UQ1VMWI.gif" class="hidden mt-4  w-12 h-12 pointer-events-none"></div>
-            <div id="generated-image" class="mt-4 rounded-2xl"></div>
-            <!-- Fullscreen View Modal -->
-            <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
-              <div class="relative bg-black rounded-lg">
-                <img id="fullscreen-img" src="" alt="Full Screen Image" class="w-full h-auto">
-                <a id="download-btn" class="absolute bottom-4 right-4 bg-blue-500 text-white px-4 py-2 rounded-md">Download</a>
-                <button onclick="closeFullscreenModal()" class="absolute top-4 right-4 text-white bg-red-500 p-2 rounded-full">X</button>
-              </div>
-            </div>
-        </div>
-
-
-        </div>
-      </div>
-    </div>
+</html>
