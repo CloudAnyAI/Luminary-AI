@@ -271,7 +271,7 @@ function generateImage(prompt) {
                 document.getElementById('generated-image').innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
                 localStorage.setItem(usageKey, usageCount + 1);
             } else {
-                displayErrorMessage('Error generating image. Please try again.');
+                displayErrorMessage('API hết hạn');
             }
         })
         .catch(error => {
