@@ -159,7 +159,9 @@ align-items: center;"
             </form>
   
             <img id="spinner" src="https://i.imgur.com/UQ1VMWI.gif" class="hidden mt-4  w-12 h-12 pointer-events-none"></div>
-            <div id="generated-image" class="mt-4 rounded-2xl"></div>
+           <div id="generated-image" class="mt-4 rounded-2xl"></div>
+<button id="download-btn" class="hidden bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Download</button>
+
             <!-- Fullscreen View Modal -->
             <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
               <div class="relative bg-black rounded-lg">
@@ -268,7 +270,15 @@ function generateImage(prompt) {
         .then(data => {
             document.getElementById('spinner').classList.add('hidden');
             if (data.status === 'success') {
-                document.getElementById('generated-image').innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
+                const generatedImage = document.getElementById('generated-image');
+                const downloadBtn = document.getElementById('download-btn');
+                
+                generatedImage.innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
+                
+                downloadBtn.classList.remove('hidden');
+                downloadBtn.setAttribute('href', data.imageUrl);
+                downloadBtn.setAttribute('download', 'generated_image.png');
+
                 localStorage.setItem(usageKey, usageCount + 1);
             } else {
                 displayErrorMessage('Error generating image. Please try again.');
