@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: 
+Disallow: /data.js/
+Disallow: /im-4.js/
+Disallow: /chatdt.js/
+Disallow: /ftlogin.js/
+Sitemap: https://luminarylig.pages.dev/sitemap.xml
