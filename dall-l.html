@@ -160,7 +160,7 @@ align-items: center;"
   
             <img id="spinner" src="https://i.imgur.com/UQ1VMWI.gif" class="hidden mt-4  w-12 h-12 pointer-events-none"></div>
            <div id="generated-image" class="mt-4 rounded-2xl"></div>
-<button id="download-btn" class="hidden bg-blue-500 text-white px-4 py-2 rounded-md mt-4">Download</button>
+<a id="download-btn" class="hidden bg-blue-500 text-white px-4 py-2 rounded-md mt-4" download="generated_image.png">Download</a>
 
             <!-- Fullscreen View Modal -->
             <div id="fullscreen-modal" class="fixed w-full h-full inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center hidden z-[9999]">
@@ -259,7 +259,7 @@ function generateImage(prompt) {
 
         document.getElementById('spinner').classList.remove('hidden');
 
-        fetch("https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1wa181VG1YSTFLVzFxSW4xRkVLU3ZXQmxvcV9tWVpOTUJYdnZwQWNjNVhRUndMZGoteHJkUzFvQ1RUem5oN0NkVmVIc1JYNXhQQUxZQ1ZZQ3kxUFJfNENVV1E9PQ==", {
+        fetch("https://backend.buildpicoapps.com/aero/run/image-generation-api?pk=v1-Z0FBQUFBQm1kOFBXU05tYk0zYjl2QVl4MjE1dHlDbl83OUdDQ3dwSUR0dXdYWmlCeFFKVmZESm4xakpSTU1uczZjV2RQaktDd085cnFaZU1ab19hbDk4ZmJGYVJLdm1keG44N2x2dmVzWURGSUU4TnBGMjFkZFU9", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -276,8 +276,8 @@ function generateImage(prompt) {
                 generatedImage.innerHTML = `<img src="${data.imageUrl}" alt="Generated Image" class="w-[40px] h-[40px] padding -10 h-auto rounded-2xl mt-4" onclick="openFullscreenModal('${data.imageUrl}')">`;
                 
                 downloadBtn.classList.remove('hidden');
-                downloadBtn.setAttribute('href', data.imageUrl);
-                downloadBtn.setAttribute('download', 'generated_image.png');
+                downloadBtn.href = data.imageUrl;
+                downloadBtn.download = 'generated_image.png';
 
                 localStorage.setItem(usageKey, usageCount + 1);
             } else {
