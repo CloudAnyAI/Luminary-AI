@@ -42,7 +42,6 @@ function validateLogin() {
     localStorage.setItem('userInfo', JSON.stringify(user));
     document.getElementById('login-modal').classList.add('hidden');
     displayUserInfo();
-    window.location.href = 'https://luminarylig.pages.dev';  // Redirect to the specified URL
   } else {
     alert('Invalid username or password.');
   }
